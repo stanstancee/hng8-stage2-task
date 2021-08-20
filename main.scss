@@ -398,7 +398,7 @@ footer {
 
     p,
     a {
-        padding: 10px;
+        padding: 10px 0;
 
     }
     .details {
@@ -408,6 +408,7 @@ footer {
         height: 10vh;
         display: flex;
         justify-content: space-between;
+        width: 100%;
 
     }
 
