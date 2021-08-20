@@ -1,0 +1,425 @@
+//variables
+$dark: #212121;
+$primary: #455a64;
+$accent: #009688;
+$text: #ffffff;
+
+//mixins
+@mixin for-size($size) {
+    @if $size == phone-only {
+        @media (max-width: 599px) {
+            @content;
+        }
+    } @else if $size == tablet-portrait-up {
+        @media (min-width: 600px) {
+            @content;
+        }
+    } @else if $size == tablet-landscape-up {
+        @media (min-width: 900px) {
+            @content;
+        }
+    } @else if $size == desktop-up {
+        @media (min-width: 1200px) {
+            @content;
+        }
+    } @else if $size == big-desktop-up {
+        @media (min-width: 1800px) {
+            @content;
+        }
+    }
+}
+
+@mixin row-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+@mixin col-flex($j-content: center) {
+    display: flex;
+    flex-direction: column;
+    justify-content: $j-content;
+}
+
+//btn
+.btn {
+    background: #607d8b;
+    background-image: linear-gradient(top, $primary, $accent);
+    border-radius: 20px;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 100;
+    padding: 10px;
+    box-shadow: 1px 1px 20px 0 $dark;
+    text-shadow: 1px 1px 20px $dark;
+    border: solid #337fed 1px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn:hover {
+    border: solid #337fed 1px;
+    background: $dark;
+    background-image: linear-gradient(top, $primary, $dark);
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+//reset.scss
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+//typography
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&family=Montserrat:wght@600&family=Ubuntu:wght@300&display=swap");
+
+body {
+    font-family: "Ubuntu", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Montserrat", sans-serif;
+    color: $text;
+}
+
+p {
+    font-family: "Lato", sans-serif;
+    line-height: 1.5;
+}
+
+.icons:hover {
+    cursor: pointer;
+}
+
+//main
+body {
+    background: $dark;
+    > *:not(:nth-child(1)) {
+        margin: 10vh auto;
+        width: 90vw;
+    }
+}
+main {
+    width: 90vw;
+    display: flex;
+    @include col-flex();
+    text-align: center;
+    height: 400px;
+
+    .heading {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        > * {
+            margin: 5px;
+        }
+        h1,
+        h3,
+        p {
+            color: $text;
+        }
+        h1 {
+            font: {
+                size: 3rem;
+                weight: 900;
+            }
+        }
+        .stan {
+            color: $accent;
+            text-transform: uppercase;
+        }
+    }
+
+    .img-div {
+        display: none;
+    }
+    @include for-size(tablet-landscape-up) {
+        @include row-flex();
+        text-align: left;
+        .img-div {
+            display: flex;
+            @include col-flex();
+            height: 100%;
+        }
+
+        > * {
+            width: 47%;
+        }
+    }
+}
+
+//navigation
+nav {
+    background: $primary;
+    display: flex;
+    color: $text;
+    height: 10vh;
+    width: 90vw;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto 5vw;
+    position: fixed;
+    top: 0;
+
+    .icons {
+        float: right;
+        padding-right: 6px;
+    }
+
+    .hide,
+    .nav-hide {
+        display: none;
+    }
+    .first {
+        width: 30%;
+    }
+    .second {
+        width: 50%;
+    }
+    ul {
+        position: absolute;
+        left: 10vw;
+        top: 80px;
+        width: 70vw;
+        height: 300px;
+        background-color: adjust-color($color: $dark, $alpha: -0.1);
+        z-index: 3;
+
+        li {
+            transition: border-bottom 0.3s linear, padding 0.3s;
+            padding: 10px;
+
+            &:hover {
+                border-bottom: 2px solid $accent;
+                padding: 10px;
+            }
+        }
+    }
+    .fas {
+        font-size: 40px;
+        color: $accent;
+    }
+
+    @include for-size(tablet-landscape-up) {
+        .icons {
+            display: none;
+        }
+        .nav-hide {
+            display: flex;
+        }
+
+        ul {
+            @include row-flex;
+            position: static;
+            justify-content: space-around;
+            width: auto;
+            height: auto;
+            background-color: inherit;
+            li {
+                padding: 0;
+            }
+        }
+        .second {
+            width: 70%;
+        }
+    }
+}
+
+//About page
+
+.about {
+    @include col-flex();
+    color: $text;
+    text-align: center;
+    .img-div {
+        align-items: center;
+        @include col-flex();
+    }
+    img {
+        height: 90%;
+        width: 90%;
+        border-right: 7px solid $accent;
+        border-top: 7px solid $accent;
+    }
+    > * {
+        height: 300px;
+    }
+    h2 {
+        font-weight: 900;
+        border-bottom: 7px solid $accent;
+    }
+    p,
+    h2 {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    @include for-size(tablet-landscape-up) {
+        @include row-flex;
+        > * {
+            width: 47%;
+        }
+    }
+}
+
+// mid-div
+.mid-div {
+    @include col-flex();
+   h1{
+        border-bottom: 4px solid $accent;
+        width: fit-content;
+    }
+    > * {
+        margin: 12px 0;
+    }
+
+    @include for-size(tablet-landscape-up) {
+        flex-direction: row;
+        justify-content: space-between;
+
+        > *:not(:nth-child(1)) {
+            width: 35%;
+        }
+    }
+}
+.details {
+    @include row-flex();
+    h4{
+        color:$accent;
+    }
+    p{
+        color:rgb(203, 235, 224);
+    }
+    > * {
+        width: 47%;
+        margin: 5px 0;
+    }
+    margin: 10px 0;
+    @include for-size(tablet-landscape-up) {
+        @include col-flex();
+        > * {
+            width: 100%;
+        }
+    }
+}
+
+//skills
+.container {
+    width: 100%;
+    background-color: $primary;
+    border-radius: 40%;
+}
+
+.skills {
+    text-align: right; /* Right-align text */
+    padding-top: 10px; /* Add top padding */
+    padding-bottom: 10px;
+    color: $text;
+    /* White text color */
+}
+
+.html,
+.js {
+    width: 90%;
+    background-color: $accent;
+}
+.css,
+.react {
+    width: 80%;
+    background-color: rgb(7, 33, 148);
+}
+.node {
+    width: 60%;
+    background-color: #d64025;
+}
+
+footer {
+    text-align: center;
+    color: $text;
+    h2{
+        border-bottom: 4px solid $accent;
+        width: fit-content;
+    }
+    button{
+        margin: 10px 0;
+
+    }
+    .fas,.fab{
+        color: $accent;
+    }
+
+    p,
+    a {
+        padding: 10px;
+
+    }
+    .details {
+        @include col-flex();
+    }
+    .footer-img{
+        height: 10vh;
+        display: flex;
+        justify-content: space-between;
+
+    }
+
+    @include for-size(tablet-landscape-up) {
+        .details {
+
+            @include row-flex();
+            > * {
+                width: 47%;
+            }
+            margin: 10px 0;
+        }
+        text-align: left;
+    }
+}
