@@ -539,6 +539,14 @@ footer .footer-img {
   width: 100%;
 }
 
+footer .footer-img > div {
+  width: 30%;
+}
+
+footer .footer-img img {
+  width: 100%;
+}
+
 @media (min-width: 900px) {
   footer {
     text-align: left;
